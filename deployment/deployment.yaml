@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: dashboard
-        image: sysnet4admin/dashboard
+        image: 10.251.152.224:5000/dashboard
         imagePullPolicy: Always
         volumeMounts:
         - name: config-volume
