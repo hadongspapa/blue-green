@@ -11,7 +11,7 @@ pipeline {
       spec:
         containers:
         - name: kustomize
-          image: sysnet4admin/kustomize:3.6.1
+          image: 10.251.152.224:5000/kustomize:3.6.1
           tty: true
           volumeMounts:
           - mountPath: /bin/kubectl
@@ -29,7 +29,7 @@ pipeline {
   stages {
     stage('git scm update'){
       steps {
-        git url: 'https://github.com/IaC-Source/blue-green.git', branch: 'main'
+        git url: 'https://github.com/hadongspapa/blue-green.git', branch: 'main'
       }
     }
     stage('define tag'){
@@ -53,7 +53,7 @@ pipeline {
             echo "deploy new deployment"
             kustomize edit add label deploy:$tag -f
             kustomize edit set namesuffix -- -$tag
-            kustomize edit set image sysnet4admin/dashboard:$tag
+            kustomize edit set image 10.251.152.224:5000/dashboard:$tag
             kustomize build . | kubectl apply -f -
             echo "retrieve new deployment"
             kubectl get deployments -o wide
